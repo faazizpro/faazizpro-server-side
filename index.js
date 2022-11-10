@@ -23,12 +23,13 @@ async function run(){
         const foodCollection = client.db('FoodHunter').collection('FoodLists');
         const reviewCollection = client.db('FoodHunter').collection('FoodReviews');
 
-        app.get('/foods', async(req, res)=>{
-            const query = {};
-            const cursor = foodCollection.find(query);
-            const foods = await cursor.toArray();
+        app.get('/foods', async (req, res) => {
+            const query = req.query.limit || 0;
+            const cursor = foodCollection.find({}).sort({_id:-1});
+            const foods = await cursor.limit(parseInt(query)).toArray();
             res.send(foods);
         })
+
         app.get('/allreview', async(req, res)=>{
             const query = {};
             console.log(query);
@@ -47,6 +48,13 @@ async function run(){
         app.get('/reviewsbyid', async(req, res)=>{
             const serviceId = req.query.serviceId;
             const query = { serviceId:serviceId};
+            const reviews = await reviewCollection.find(query).toArray();
+            res.send(reviews);
+        })
+
+        app.get('/reviewsbyemail', async(req, res)=>{
+            const remail = req.query.remail;
+            const query = { remail:remail};
             const reviews = await reviewCollection.find(query).toArray();
             res.send(reviews);
         })

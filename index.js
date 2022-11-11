@@ -61,8 +61,8 @@ async function run(){
         app.get('/reviewsbyemail', async(req, res)=>{
             const remail = req.query.remail;
             const query = { remail:remail};
-            const reviews = await reviewCollection.find(query).toArray();
-            res.send(reviews);
+            const reviewsbyemail = await reviewCollection.find(query).toArray();
+            res.send(reviewsbyemail);
         })
 
         app.post('/reviews', async(req, res)=>{

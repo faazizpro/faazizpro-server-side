@@ -30,6 +30,12 @@ async function run(){
             res.send(foods);
         })
 
+        app.post('/foods', async(req, res)=>{
+            const addFood = req.body;
+            const result = await foodCollection.insertOne(addFood);
+            res.send(result);
+        })
+
         app.get('/allreview', async(req, res)=>{
             const query = {};
             console.log(query);

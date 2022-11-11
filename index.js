@@ -54,8 +54,8 @@ async function run(){
         app.get('/reviewsbyid', async(req, res)=>{
             const serviceId = req.query.serviceId;
             const query = { serviceId:serviceId};
-            const reviews = await reviewCollection.find(query).toArray();
-            res.send(reviews);
+            const reviewsById = await reviewCollection.find(query).toArray();
+            res.send(reviewsById);
         })
 
         app.get('/reviewsbyemail', async(req, res)=>{
